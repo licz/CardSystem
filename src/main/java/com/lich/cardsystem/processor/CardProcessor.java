@@ -17,6 +17,6 @@ public interface CardProcessor {
     Transaction refund(String cardId, String transactionId, BigDecimal amount) throws CardException;
     Card createCard(String cardId);
     Card credit(String cardId, BigDecimal amount) throws CardException;
-
     List<Transaction> getTransactionHistory(String cardId) throws CardException;
+    Card getCard(String cardId) throws CardException;
 }

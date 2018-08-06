@@ -72,6 +72,7 @@ public class SimpleCardProcessor implements CardProcessor {
         }
 
         transaction.setCaptured(true);
+        card.setBlockedBalance(card.getBlockedBalance().subtract(transaction.getAmount()));
 
         cardRepository.save(card);
 
@@ -159,5 +160,14 @@ public class SimpleCardProcessor implements CardProcessor {
         }
 
         return card.getTransactions();
+    }
+
+    @Override
+    public Card getCard(String cardId) throws CardException {
+        Card card = cardRepository.findOne(cardId);
+        if (card == null) {
+            throw new CardNotFound();
+        }
+        return card;
     }
 }
